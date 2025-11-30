@@ -1,0 +1,67 @@
+{% extends 'base.html' %} {% block content %}
+<main>
+  <div class="main-header">
+    <a href="{{request.META.HTTP_REFERER}}">
+      <svg
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 32 32"
+        class="arrow-left"
+      >
+        <title>arrow-left</title>
+        <path
+          d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z"
+        ></path>
+      </svg>
+    </a>
+  </div>
+  {% if page == 'login' %}
+  <div class="form">
+    <form action="" method="POST">
+      {% csrf_token %}
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" />
+
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" />
+
+      <input class="input-submit" type="submit" />
+    </form>
+  </div>
+
+  <p class="signup-login-thing">
+    Haven't signed up yet?
+    <a class="da-link" href="{% url 'register' %}"> Sign Up! </a>
+  </p>
+
+  {% elif page == 'register' %}
+  <div class="form wrapper">
+    <form action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %} 
+      <label class="input-image">
+				Upload avatar
+				{{form.avatar}}
+			</label>
+			
+			<label for="{{form.username.id_for_label}}">{{form.username.label}}</label>
+      {{form.username}}
+
+      <label for="{{form.password1.id_for_label}}">{{form.password1.label}}</label>
+      {{form.password1}}
+      
+			<label for="{{form.password2.id_for_label}}">{{form.password2.label}}</label>
+      {{form.password2}}
+      
+			<input class="input-submit" type="submit" />
+    </form>
+  </div>
+
+  <p class="signup-login-thing">
+    Have alread signed up?
+    <a class="da-link" href="{% url 'login' %}"> Log in! </a>
+  </p>
+  {% endif %}
+</main>
+{% endblock content %}

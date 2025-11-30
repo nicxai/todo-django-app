@@ -1,0 +1,57 @@
+<nav class="navbar">
+  <a href="{% url 'home' %}" class="logo">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      version="1.1"
+      id="Capa_1"
+      x="0px"
+      y="0px"
+      viewBox="0 0 24 24"
+      style="enable-background: new 0 0 24 24"
+      xml:space="preserve"
+      width="40"
+      height="40"
+    >
+      <title>logo</title>
+      <path
+        d="M12.569,0.152c-0.351-0.203-0.785-0.203-1.136,0L2.026,5.581C1.674,5.784,1.458,6.159,1.458,6.565v10.866  c0,0.406,0.217,0.781,0.568,0.984l9.407,5.433c0.352,0.203,0.785,0.203,1.137,0l9.405-5.433c0.351-0.203,0.568-0.578,0.568-0.984  V6.565c0-0.406-0.217-0.781-0.568-0.984L12.569,0.152z"
+      />
+    </svg>
+  </a>
+  <p>{{dones}}</p>
+
+  {% if request.user.is_authenticated %}
+  <div>
+    <img src="{{request.user.avatar.url}}">
+    <p>Hi {{request.user.username}}</p>
+    <input type="checkbox" id="logout-container" hidden />
+    <label for="logout-container" class="chevron-down">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="lucide lucide-chevron-down-icon lucide-chevron-down"
+      >
+        <path d="m6 9 6 6 6-6" />
+      </svg>
+    </label>
+    <a href="{% url 'logout' %}"> log out </a>
+  </div>
+  {% else %}
+	<a href="{% url 'login' %}" class="login"> log in </a>
+  {% endif %}
+</nav>
+{% if messages %}
+<div class="messages">
+  {% for message in messages %}
+  <p class="message">{{message}}</p>
+  {% endfor %}
+</div>
+{% endif %}

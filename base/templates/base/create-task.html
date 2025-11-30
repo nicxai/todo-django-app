@@ -1,0 +1,42 @@
+{% extends 'base.html' %} {% block content %}
+
+<main>
+  <div class="main-header">
+    <a href="{{request.META.HTTP_REFERER}}">
+      <svg
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 32 32"
+        class="arrow-left"
+      >
+        <title>arrow-left</title>
+        <path
+          d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z"
+        ></path>
+      </svg>
+    </a>
+  </div>
+  <div class="create-task-wrapper">
+    <div class="form">
+      <form action="" method="POST">
+        {% csrf_token %}
+        <label for="name">Name:</label>
+				{{form.name}}
+        <label for="deadline">
+          Deadline:
+          {{form.deadline}}
+        </label>
+        <label for="priority">
+          Priority:
+          {{form.priority}}
+        </label>
+        <label for="description">description:</label>
+        {{form.description}}
+        <input class="input-submit" type="submit" value="Submit" />
+      </form>
+    </div>
+  </div>
+</main>
+{% endblock content %}

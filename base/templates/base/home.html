@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="menu">
+  <input type="checkbox" id="toggle" hidden />
+  <label for="toggle" class="fab">Filter By</label>
+
+  <div class="items">
+    <a href="{% url 'home' %}?q=High " class="item">High priority</a>
+    <a href="{% url 'home' %}?q=Medium " class="item">Medium Priority</a>
+    <a href="{% url 'home' %}?q=Low " class="item">Low priority</a>
+    <a href="{% url 'home' %}?q=Completed " class="item">Completed</a>
+    <a href="{% url 'home' %}?q=Not-Completed " class="item">Not Completed</a>
+    <a href="{% url 'home' %}" class="item">All</a>
+  </div>
+</div>
+
+<a href="{% url 'create-task' %}" class="create-task"> + </a>
+
+<main>
+  <div class="tasks-wrapper">
+    <div class="task-grid">
+      {% for task in tasks %} {% if task.completed %}
+      <a href="{% url 'task' task.id %}" class="task completed ">
+        <p>{{task.name}}</p>
+        <time class="deadline">{{task.deadline}}</time>
+      </a>
+      {% else %}
+      <a href="{% url 'task' task.id %}" class="task {{task.priority}}">
+        <p>{{task.name}}</p>
+        <time class="deadline">{{task.deadline}}</time>
+      </a>
+      {% endif %} {% endfor %}
+    </div>
+  </div>
+</main>
+{% endblock content %}

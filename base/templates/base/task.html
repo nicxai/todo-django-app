@@ -1,0 +1,73 @@
+{% extends 'base.html' %} {% block content %}
+<main>
+  <div class="task-info">
+    <div class="main-header">
+      <a href="{{request.META.HTTP_REFERER}}">
+        <svg
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 32 32"
+          class="arrow-left"
+        >
+          <title>arrow-left</title>
+          <path
+            d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z"
+          ></path>
+        </svg>
+      </a>
+
+      <h2 class="task-name">{{task.name}}</h2>
+      <a href="{% url 'edit-task' task.id %}">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="pencil"
+        >
+          <title>pencil</title>
+          <path
+            d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"
+          />
+          <path d="m15 5 4 4" />
+        </svg>
+      </a>
+    </div>
+    <div class="task-meta">
+      <div class="priority">
+        <p class="status-name">Priority</p>
+        <p class="status {{task.priority}}">{{task.priority}}</p>
+      </div>
+      <div class="deadline-in-task">
+        <p class="status-name">Deadline</p>
+        <p class="status">{{task.deadline}}</p>
+      </div>
+      <div class="is-done">
+        <p class="status-name">Status</p>
+        {% if task.completed %}
+        <p class="status status-completed">Completed</p>
+        {% else %}
+        <p class="status ">Not completed</p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="task-description">
+      {{task.description}}
+    </div>
+    <div class="task-actions">
+      <a href="{% url 'delete-task' task.id %}" class="delete"> Delete </a>
+      {% if task.completed %}
+      {% else %}
+      <a href="{% url 'complete-task' task.id %}" class="complete"> Complete </a>
+      {% endif %}
+    </div>
+  </div>
+</main>
+{% endblock content %}
