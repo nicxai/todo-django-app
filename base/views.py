@@ -89,14 +89,15 @@ def editTask(request, pk):
     task = get_object_or_404(Task, id=pk)
     form = TaskForm(instance=task)
 
-    if request.user.id == task.user:
+    if request.user.id != task.user.id:
         return redirect("home")
 
     if request.method == "POST":
         task.name = request.POST.get("name")
         task.description = request.POST.get("description")
         task.priority = request.POST.get("priority")
-        task.deadline = request.POST.get("deadline")
+        if request.POST.get("deadline") != '':
+            task.deadline = request.POST.get("deadline")
         task.save()
         return redirect("home")
 
